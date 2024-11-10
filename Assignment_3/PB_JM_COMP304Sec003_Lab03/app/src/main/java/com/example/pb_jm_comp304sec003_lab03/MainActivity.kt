@@ -11,7 +11,6 @@ import com.example.pb_jm_comp304sec003_lab03.views.HomeActivity
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         setContent {
             gotoHomeScreen(this@MainActivity)
         }

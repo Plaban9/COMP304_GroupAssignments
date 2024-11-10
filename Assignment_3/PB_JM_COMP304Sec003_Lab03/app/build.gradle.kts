@@ -56,6 +56,24 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
+
+    // Added Impl
+
+    //Live data
+    implementation (libs.androidx.runtime.livedata)
+
+    // View Model
+    implementation (libs.androidx.lifecycle.viewmodel.compose)
+
+    // Retrofit for network requests
+    implementation (libs.retrofit2.retrofit)
+    implementation (libs.converter.gson)
+
+    // Coroutines for asynchronous programming
+    implementation (libs.kotlinx.coroutines.android)
+
+    // Added Impl Ended
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
