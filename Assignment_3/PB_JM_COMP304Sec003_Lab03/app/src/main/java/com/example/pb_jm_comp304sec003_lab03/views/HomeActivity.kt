@@ -77,7 +77,7 @@ class HomeActivity : ComponentActivity() {
     @Composable
     private fun ContentUI(innerPaddingValues: PaddingValues) {
 
-        viewModel.fetchWeatherData(city = "Toronto")
+        viewModel.fetchCityWeatherData(city = "Toronto")
 
         val weatherData by viewModel.weatherData.observeAsState(initial = null)
 
