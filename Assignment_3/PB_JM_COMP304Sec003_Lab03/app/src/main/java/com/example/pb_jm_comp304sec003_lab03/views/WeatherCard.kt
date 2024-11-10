@@ -11,6 +11,8 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.TextUnitType
@@ -47,7 +49,8 @@ fun WeatherCard(weatherData: WeatherData) {
                     .padding(5.dp),
                 text = weatherData.location.name.toString(),
                 textAlign = TextAlign.Center,
-                fontSize = TextUnit(value = 25f, type = TextUnitType.Sp)
+                fontWeight = FontWeight.Bold,
+                style = MaterialTheme.typography.titleLarge,
             )
 
             Row(

@@ -7,8 +7,8 @@ import com.example.pb_jm_comp304sec003_lab03.services.RetrofitInstance
 class WeatherDataRepository {
     private val weatherDataService = RetrofitInstance.weatherService
 
-    suspend fun getWeatherData(): WeatherData {
-        val data = weatherDataService.getWeatherData()
+    suspend fun getWeatherData(city: String): WeatherData {
+        val data = weatherDataService.getWeatherData(city)
         Log.d("Weather Data", data.toString())
         return data
     }

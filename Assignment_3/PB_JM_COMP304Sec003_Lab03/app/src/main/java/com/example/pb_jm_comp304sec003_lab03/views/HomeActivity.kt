@@ -58,9 +58,7 @@ class HomeActivity : ComponentActivity() {
     @Composable
     private fun ContentUI(innerPaddingValues: PaddingValues) {
 
-        //LaunchedEffect(Unit) {
-        viewModel.fetchWeatherData()
-        //}
+        viewModel.fetchWeatherData(city = "Toronto")
 
         val weatherData by viewModel.weatherData.observeAsState(initial = null)
 

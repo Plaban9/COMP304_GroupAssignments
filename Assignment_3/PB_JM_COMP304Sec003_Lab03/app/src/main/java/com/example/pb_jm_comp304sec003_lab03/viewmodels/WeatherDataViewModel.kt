@@ -16,10 +16,10 @@ class WeatherDataViewModel: ViewModel() {
     private val _weatherData = MutableLiveData<WeatherData>()
     val weatherData: LiveData<WeatherData> = _weatherData
 
-    fun fetchWeatherData() {
+    fun fetchWeatherData(city: String) {
         viewModelScope.launch {
             try {
-                val _data = repository.getWeatherData()
+                val _data = repository.getWeatherData(city)
                 _weatherData.value = _data
             } catch (e: Exception) {
                 Log.d("Weather Data Fetch Failed", e.message.toString())
