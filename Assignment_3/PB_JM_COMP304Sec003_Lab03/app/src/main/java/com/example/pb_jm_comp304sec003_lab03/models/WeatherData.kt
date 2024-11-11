@@ -1,55 +1,67 @@
 package com.example.pb_jm_comp304sec003_lab03.models
 
+import com.google.gson.annotations.SerializedName
+
 /*
 
 Response JSON
 
 {
-"location": {
-    "name": "Toronto",
-    "region": "Ontario",
-    "country": "Canada",
-    "lat": 43.6667,
-    "lon": -79.4167,
-    "tz_id": "America/Toronto",
-    "localtime_epoch": 1731279352,
-    "localtime": "2024-11-10 17:55"
-},
-"current": {
-    "last_updated_epoch": 1731278700,
-    "last_updated": "2024-11-10 17:45",
-    "temp_c": 10.2,
-    "temp_f": 50.4,
-    "is_day": 0,
-    "condition": {
-        "text": "Light rain",
-        "icon": "//cdn.weatherapi.com/weather/64x64/night/296.png",
-        "code": 1183
+    "location": {
+        "name": "Toronto",
+        "region": "Ontario",
+        "country": "Canada",
+        "lat": 43.6667,
+        "lon": -79.4167,
+        "tz_id": "America/Toronto",
+        "localtime_epoch": 1731284519,
+        "localtime": "2024-11-10 19:21"
     },
-    "wind_mph": 10.1,
-    "wind_kph": 16.2,
-    "wind_degree": 122,
-    "wind_dir": "ESE",
-    "pressure_mb": 1008.0,
-    "pressure_in": 29.75,
-    "precip_mm": 5.21,
-    "precip_in": 0.21,
-    "humidity": 100,
-    "cloud": 100,
-    "feelslike_c": 8.0,
-    "feelslike_f": 46.4,
-    "windchill_c": 7.3,
-    "windchill_f": 45.1,
-    "heatindex_c": 9.6,
-    "heatindex_f": 49.2,
-    "dewpoint_c": 9.1,
-    "dewpoint_f": 48.3,
-    "vis_km": 2.8,
-    "vis_miles": 1.0,
-    "uv": 0.0,
-    "gust_mph": 14.4,
-    "gust_kph": 23.1
-}
+    "current": {
+        "last_updated_epoch": 1731284100,
+        "last_updated": "2024-11-10 19:15",
+        "temp_c": 11.1,
+        "temp_f": 52.0,
+        "is_day": 0,
+        "condition": {
+            "text": "Mist",
+            "icon": "//cdn.weatherapi.com/weather/64x64/night/143.png",
+            "code": 1030
+        },
+        "wind_mph": 8.1,
+        "wind_kph": 13.0,
+        "wind_degree": 152,
+        "wind_dir": "SSE",
+        "pressure_mb": 1006.0,
+        "pressure_in": 29.7,
+        "precip_mm": 0.0,
+        "precip_in": 0.0,
+        "humidity": 100,
+        "cloud": 100,
+        "feelslike_c": 9.5,
+        "feelslike_f": 49.1,
+        "windchill_c": 8.4,
+        "windchill_f": 47.1,
+        "heatindex_c": 10.5,
+        "heatindex_f": 50.9,
+        "dewpoint_c": 10.3,
+        "dewpoint_f": 50.5,
+        "vis_km": 4.8,
+        "vis_miles": 2.0,
+        "uv": 0.0,
+        "gust_mph": 12.7,
+        "gust_kph": 20.4,
+        "air_quality": {
+            "co": 344.1,
+            "no2": 19.24,
+            "o3": 56.0,
+            "so2": 7.215,
+            "pm2_5": 4.625,
+            "pm10": 6.475,
+            "us-epa-index": 1,
+            "gb-defra-index": 1
+        }
+    }
 }
  */
 
@@ -66,4 +78,26 @@ data class LocationData(
 
 data class Current(
     val temp_c: Double,
+    val humidity: Double,
+    @SerializedName("feelslike_c")
+    val feelsLikeC: Double,
+    val uv: Double,
+
+    val condition: Condition,
+
+    @SerializedName("air_quality")
+    val airQuality: AQI,
+)
+
+data class Condition(
+    val text: String
+)
+
+data class AQI(
+    val co: Double,
+    val no2: Double,
+    val o3: Double,
+    val so2: Double,
+    val pm2_5: Double,
+    val pm10: Double,
 )
