@@ -3,7 +3,6 @@ package com.example.pb_jm_comp304sec003_lab03.views.screens
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.material.icons.Icons
@@ -19,21 +18,20 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
 import com.example.pb_jm_comp304sec003_lab03.Navigation.NavDestination
+import com.example.pb_jm_comp304sec003_lab03.models.WeatherData
 import com.example.pb_jm_comp304sec003_lab03.viewmodels.WeatherDataViewModel
 
 @Composable
-fun HomeScreen(navController: NavController, viewModel: WeatherDataViewModel, cityJsonString: String?)
+fun HomeScreen(navController: NavController, viewModel: WeatherDataViewModel, cityString: String?)
 {
     //TODO: Check JSON Here
-    MainUI(navController = navController, viewModel = viewModel)
-}
-
-@Composable
-fun HomeScreen(navController: NavController, viewModel: WeatherDataViewModel)
-{
     MainUI(navController = navController, viewModel = viewModel)
 }
 

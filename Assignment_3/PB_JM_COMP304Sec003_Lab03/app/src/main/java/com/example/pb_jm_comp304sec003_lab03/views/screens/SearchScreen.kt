@@ -46,7 +46,6 @@ fun SearchScreen(navController: NavController, viewModel: WeatherDataViewModel)
 @Composable
 private fun TopAppBarUI(searchText: String, onSearchQueryChanged: (String) -> Unit)
 {
-
     OutlinedTextField(
             value = searchText,
             onValueChange = onSearchQueryChanged,
@@ -93,7 +92,7 @@ private fun SearchedCityUI(city: CityData, navController: NavController)
             onClick =
             {
                 //TODO: Send Json here
-                navController.previousBackStackEntry?.savedStateHandle?.set("cityData", "Toronto")
+                navController.previousBackStackEntry?.savedStateHandle?.set("cityData", city.name)
                 navController.popBackStack()
             },
     ) {
