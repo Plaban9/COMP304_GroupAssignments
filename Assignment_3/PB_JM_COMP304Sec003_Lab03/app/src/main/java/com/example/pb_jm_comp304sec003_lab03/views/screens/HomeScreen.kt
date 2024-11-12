@@ -4,6 +4,8 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -85,15 +87,24 @@ private fun ContentUI(city: String, innerPaddingValues: PaddingValues, viewModel
     }
     else
     {
-        LazyColumn(
-                modifier = Modifier.padding(innerPaddingValues),
+        LazyVerticalGrid(
+            modifier = Modifier.padding(innerPaddingValues),
+            columns = GridCells.Fixed(count = 2)
         ) {
 //                items(weatherDataList) { weatherData ->
 //                    WeatherCard(weatherData)
 //                }
             item {
                 WeatherCard(weatherData = weatherData!!)
-                Text(text = weatherData.toString())
+                //Text(text = weatherData.toString())
+            }
+            item {
+                WeatherCard(weatherData = weatherData!!)
+                //Text(text = weatherData.toString())
+            }
+            item {
+                WeatherCard(weatherData = weatherData!!)
+                //Text(text = weatherData.toString())
             }
         }
     }
