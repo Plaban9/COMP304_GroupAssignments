@@ -3,8 +3,10 @@ package com.example.pb_jm_comp304sec003_lab03.Navigation
 import androidx.compose.runtime.Composable
 
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.navArgument
 import com.example.pb_jm_comp304sec003_lab03.viewmodels.WeatherDataViewModel
 import com.example.pb_jm_comp304sec003_lab03.views.screens.HomeScreen
 import com.example.pb_jm_comp304sec003_lab03.views.screens.SearchScreen
@@ -15,7 +17,22 @@ fun NavGraph(navHostController: NavHostController, viewModel: WeatherDataViewMod
 {
     NavHost(navController = navHostController, startDestination = NavDestination.HomeScreen.route)
     {
-        composable(NavDestination.HomeScreen.route) { HomeScreen(navHostController, viewModel) }
-        composable(NavDestination.SearchScreen.route) { SearchScreen(navHostController, viewModel) }
+        composable(NavDestination.HomeScreen.route)
+        { cityJson ->
+            val cityJsonString = cityJson.savedStateHandle.get<String>("cityData")
+            HomeScreen(navHostController, viewModel, cityJsonString)
+        }
+
+        composable(
+                NavDestination.SearchScreen.route.plus("/{city_data}"),
+                arguments = listOf(navArgument("city_data")
+                {
+                    type = NavType.StringType
+                })
+        )
+        {
+            SearchScreen(navHostController, viewModel)
+        }
     }
+
 }

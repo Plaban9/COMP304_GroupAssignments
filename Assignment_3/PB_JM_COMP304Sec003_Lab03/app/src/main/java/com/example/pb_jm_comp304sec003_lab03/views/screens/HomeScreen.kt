@@ -21,7 +21,13 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
 import com.example.pb_jm_comp304sec003_lab03.Navigation.NavDestination
 import com.example.pb_jm_comp304sec003_lab03.viewmodels.WeatherDataViewModel
-import com.example.pb_jm_comp304sec003_lab03.views.WeatherCard
+
+@Composable
+fun HomeScreen(navController: NavController, viewModel: WeatherDataViewModel, cityJsonString: String?)
+{
+    //TODO: Check JSON Here
+    MainUI(navController = navController, viewModel = viewModel)
+}
 
 @Composable
 fun HomeScreen(navController: NavController, viewModel: WeatherDataViewModel)
@@ -32,11 +38,13 @@ fun HomeScreen(navController: NavController, viewModel: WeatherDataViewModel)
 @Composable
 private fun MainUI(navController: NavController, viewModel: WeatherDataViewModel)
 {
+    //TODO: Array of Cities
+    val test_city = "Toronto"
     Scaffold(
             modifier = Modifier.fillMaxSize(),
             topBar = { TopAppBarUI(navController = navController) }
     ) { innerPadding ->
-        ContentUI(innerPadding, viewModel)
+        ContentUI(city = test_city, innerPadding, viewModel)
     }
 }
 
@@ -63,10 +71,11 @@ private fun TopAppBarUI(navController: NavController)
     )
 }
 
+//TODO: Custom City
 @Composable
-private fun ContentUI(innerPaddingValues: PaddingValues, viewModel: WeatherDataViewModel)
+private fun ContentUI(city: String, innerPaddingValues: PaddingValues, viewModel: WeatherDataViewModel)
 {
-    viewModel.fetchCityWeatherData(city = "Toronto")
+    viewModel.fetchCityWeatherData(city = city)
 
     val weatherData by viewModel.weatherData.observeAsState(initial = null)
 
@@ -92,5 +101,5 @@ private fun ContentUI(innerPaddingValues: PaddingValues, viewModel: WeatherDataV
 
 private fun searchBarUI(navController: NavController)
 {
-    navController.navigate(NavDestination.SearchScreen.route)
+    navController.navigate(NavDestination.SearchScreen.createRoute("Toronto"))
 }

@@ -90,7 +90,12 @@ private fun ContentUI(innerPaddingValues: PaddingValues, cityText: String, navCo
 private fun SearchedCityUI(city: CityData, navController: NavController)
 {
     ElevatedCard(
-            onClick = { navController.popBackStack() },
+            onClick =
+            {
+                //TODO: Send Json here
+                navController.previousBackStackEntry?.savedStateHandle?.set("cityData", "Toronto")
+                navController.popBackStack()
+            },
     ) {
         // City Name Text (Toronto)
         Text(
