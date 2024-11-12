@@ -1,8 +1,5 @@
 package com.example.pb_jm_comp304sec003_lab03.views.screens
 
-import android.graphics.Region
-import android.health.connect.datatypes.units.Temperature
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -21,14 +18,10 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color.Companion.Blue
-import androidx.compose.ui.graphics.Color.Companion.Green
-import androidx.compose.ui.graphics.Color.Companion.Magenta
-import androidx.compose.ui.graphics.Color.Companion.Red
-import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import coil3.compose.AsyncImage
 import com.example.pb_jm_comp304sec003_lab03.models.WeatherData
 
 @Composable
@@ -118,15 +111,10 @@ fun TemperatureEmoji(weatherData: WeatherData)
                 horizontalAlignment = Alignment.End
         ) {
 
-            Text(
-                    modifier = Modifier
-                        .padding(1.dp)
-                        .align(Alignment.End)
-                        .wrapContentWidth(),
-                    text = "☀\uFE0F",
-                    fontWeight = FontWeight.Bold,
-                    style = MaterialTheme.typography.headlineLarge,
-                    textAlign = TextAlign.Right,
+            AsyncImage(
+                model = "https://" + weatherData.current.condition.icon,
+                contentDescription = "Weather Icon",
+                modifier = Modifier.size(60.dp),
             )
 
         }
