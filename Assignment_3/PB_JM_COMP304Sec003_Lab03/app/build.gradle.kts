@@ -60,17 +60,17 @@ dependencies {
     // Added Impl
 
     //Live data
-    implementation (libs.androidx.runtime.livedata)
+    implementation(libs.androidx.runtime.livedata)
 
     // View Model
-    implementation (libs.androidx.lifecycle.viewmodel.compose)
+    implementation(libs.androidx.lifecycle.viewmodel.compose)
 
     // Retrofit for network requests
-    implementation (libs.retrofit2.retrofit)
-    implementation (libs.converter.gson)
+    implementation(libs.retrofit2.retrofit)
+    implementation(libs.converter.gson)
 
     // Coroutines for asynchronous programming
-    implementation (libs.kotlinx.coroutines.android)
+    implementation(libs.kotlinx.coroutines.android)
 
     // Added Impl Ended
 
@@ -81,4 +81,22 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+
+
+    // Navigation
+
+    val nav_version = "2.8.3"
+
+    // Jetpack Compose integration
+    implementation(libs.androidx.navigation.compose)
+
+    // Views/Fragments integration
+    implementation(libs.androidx.navigation.fragment)
+    implementation(libs.androidx.navigation.ui.ktx)
+//
+//        // Feature module support for Fragments
+//        implementation(libs.androidx.navigation.dynamic.features.fragment)
+//
+//        // Testing Navigation
+//        androidTestImplementation(libs.androidx.navigation.testing)
 }

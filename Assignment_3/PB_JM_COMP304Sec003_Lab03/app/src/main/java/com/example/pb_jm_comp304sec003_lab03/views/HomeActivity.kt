@@ -25,81 +25,86 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.compose.rememberNavController
+import com.example.pb_jm_comp304sec003_lab03.Navigation.NavGraph
 import com.example.pb_jm_comp304sec003_lab03.ui.theme.PB_JM_COMP304Sec003_Lab03Theme
 import com.example.pb_jm_comp304sec003_lab03.viewmodels.WeatherDataViewModel
 
-class HomeActivity : ComponentActivity() {
+class HomeActivity : ComponentActivity()
+{
+    public val viewModel: WeatherDataViewModel by viewModels()
 
-    private val viewModel: WeatherDataViewModel by viewModels()
-
-    override fun onCreate(savedInstanceState: Bundle?) {
+    override fun onCreate(savedInstanceState: Bundle?)
+    {
         super.onCreate(savedInstanceState)
         setContent {
             PB_JM_COMP304Sec003_Lab03Theme {
-                MainUI()
+                val navController = rememberNavController()
+                NavGraph(navHostController = navController, viewModel)
+//                MainUI()
             }
         }
     }
-
-    @Preview
-    @Composable
-    private fun MainUI(){
-        Scaffold(
-            modifier = Modifier.fillMaxSize(),
-            topBar = { TopAppBarUI() }
-        ) { innerPadding ->
-                ContentUI(innerPadding)
-        }
-    }
-
-    @Composable
-    @OptIn(ExperimentalMaterial3Api::class)
-    private fun TopAppBarUI() {
-        TopAppBar(
-            title = { Text(text = "Weather App 🌦️") },
-            colors = TopAppBarDefaults.topAppBarColors(
-                containerColor = MaterialTheme.colorScheme.primaryContainer,
-                titleContentColor = MaterialTheme.colorScheme.primary,
-            ),
-            actions = {
-                IconButton(
-                    onClick = { searchBarUI(this@HomeActivity) }
-                ) {
-                    Icon(
-                        imageVector = Icons.Default.Search,
-                        contentDescription = "Search City",
-                    )
-                }
-            }
-        )
-    }
-
-    @Composable
-    private fun ContentUI(innerPaddingValues: PaddingValues) {
-
-        viewModel.fetchCityWeatherData(city = "Toronto")
-
-        val weatherData by viewModel.weatherData.observeAsState(initial = null)
-
-        if (weatherData == null) {
-            Text(text = "Loading...")
-        } else {
-            LazyColumn(
-                modifier = Modifier.padding(innerPaddingValues),
-            ) {
-//                items(weatherDataList) { weatherData ->
-//                    WeatherCard(weatherData)
+//
+//    @Preview
+//    @Composable
+//    private fun MainUI(){
+//        Scaffold(
+//            modifier = Modifier.fillMaxSize(),
+//            topBar = { TopAppBarUI() }
+//        ) { innerPadding ->
+//                ContentUI(innerPadding)
+//        }
+//    }
+//
+//    @Composable
+//    @OptIn(ExperimentalMaterial3Api::class)
+//    private fun TopAppBarUI() {
+//        TopAppBar(
+//            title = { Text(text = "Weather App 🌦️") },
+//            colors = TopAppBarDefaults.topAppBarColors(
+//                containerColor = MaterialTheme.colorScheme.primaryContainer,
+//                titleContentColor = MaterialTheme.colorScheme.primary,
+//            ),
+//            actions = {
+//                IconButton(
+//                    onClick = { searchBarUI(this@HomeActivity) }
+//                ) {
+//                    Icon(
+//                        imageVector = Icons.Default.Search,
+//                        contentDescription = "Search City",
+//                    )
 //                }
-                item {
-                    WeatherCard(weatherData = weatherData!!)
-                    Text(text = weatherData.toString())
-                }
-            }
-        }
-    }
-
-    private fun searchBarUI(context: Context) {
-        val intent = Intent(context, SearchActivity::class.java)
-        context.startActivity(intent)
-    }
+//            }
+//        )
+//    }
+//
+//    @Composable
+//    private fun ContentUI(innerPaddingValues: PaddingValues) {
+//
+//        viewModel.fetchCityWeatherData(city = "Toronto")
+//
+//        val weatherData by viewModel.weatherData.observeAsState(initial = null)
+//
+//        if (weatherData == null) {
+//            Text(text = "Loading...")
+//        } else {
+//            LazyColumn(
+//                modifier = Modifier.padding(innerPaddingValues),
+//            ) {
+////                items(weatherDataList) { weatherData ->
+////                    WeatherCard(weatherData)
+////                }
+//                item {
+//                    WeatherCard(weatherData = weatherData!!)
+//                    Text(text = weatherData.toString())
+//                }
+//            }
+//        }
+//    }
+//
+//    private fun searchBarUI(context: Context) {
+//        val intent = Intent(context, SearchActivity::class.java)
+//        context.startActivity(intent)
+//    }
 }

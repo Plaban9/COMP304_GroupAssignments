@@ -41,103 +41,103 @@ import com.example.pb_jm_comp304sec003_lab03.views.ui.theme.PB_JM_COMP304Sec003_
 
 class SearchActivity : ComponentActivity() {
 
-    private val viewModel: WeatherDataViewModel by viewModels()
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContent {
-            PB_JM_COMP304Sec003_Lab03Theme {
-                var searchedCityText by rememberSaveable { mutableStateOf("") }
-
-                Scaffold(
-                    modifier = Modifier.fillMaxSize(),
-                    topBar = { TopAppBarUI(searchedCityText, { searchedCityText = it }) },
-                ) { innerPadding ->
-                    if (searchedCityText.length >= 3)
-                        ContentUI(innerPaddingValues = innerPadding, searchedCityText)
-                }
-            }
-        }
-    }
-
-    @Composable
-    private fun TopAppBarUI(searchText: String, onSearchQueryChanged: (String) -> Unit) {
-
-        OutlinedTextField(
-            value = searchText,
-            onValueChange = onSearchQueryChanged,
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 16.dp, vertical = 10.dp),
-            leadingIcon = {
-                Icon(
-                    imageVector = Icons.Outlined.Search,
-                    contentDescription = "Search Icon",
-                    modifier = Modifier.size(24.dp)
-                )
-            },
-            placeholder = { Text(text = "Enter city name (at least 3 letters)") },
-            singleLine = true,
-            label = { Text(text = "Search") },
-            isError = searchText.length < 3,
-        )
-    }
-
-    @Composable
-    private fun ContentUI(innerPaddingValues: PaddingValues, cityText: String) {
-
-        viewModel.fetchCityList(cityText)
-        val cityList by viewModel.cityList.observeAsState(initial = emptyList())
-
-        LazyColumn(
-            modifier = Modifier
-                .padding(innerPaddingValues)
-                .fillMaxSize(),
-            contentPadding = PaddingValues(15.dp)
-        ) {
-            items(cityList) { city ->
-                SearchedCityUI(city)
-                Spacer(modifier = Modifier.padding(top = 10.dp))
-            }
-        }
-    }
-
-    @Composable
-    private fun SearchedCityUI(city: CityData) {
-        ElevatedCard(
-            onClick = { /*TODO*/ },
-        ) {
-            // City Name Text (Toronto)
-            Text(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(5.dp),
-                text = city.name,
-                textAlign = TextAlign.Center,
-                style = MaterialTheme.typography.titleLarge,
-                color = MaterialTheme.colorScheme.primary,
-            )
-
-            // City Region Text (Ontario)
-            Text(
-                modifier = Modifier.fillMaxWidth(),
-                text = city.region,
-                textAlign = TextAlign.Center,
-                style = MaterialTheme.typography.bodyMedium,
-                color = MaterialTheme.colorScheme.secondary,
-            )
-
-            // City Country Text (Canada)
-            Text(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(bottom = 5.dp),
-                text = city.country,
-                textAlign = TextAlign.Center,
-                style = MaterialTheme.typography.bodySmall,
-                color = MaterialTheme.colorScheme.tertiary,
-            )
-        }
-    }
+//    private val viewModel: WeatherDataViewModel by viewModels()
+//
+//    override fun onCreate(savedInstanceState: Bundle?) {
+//        super.onCreate(savedInstanceState)
+//        setContent {
+//            PB_JM_COMP304Sec003_Lab03Theme {
+//                var searchedCityText by rememberSaveable { mutableStateOf("") }
+//
+//                Scaffold(
+//                        modifier = Modifier.fillMaxSize(),
+//                        topBar = { TopAppBarUI(searchedCityText, { searchedCityText = it }) },
+//                ) { innerPadding ->
+//                    if (searchedCityText.length >= 3)
+//                        ContentUI(innerPaddingValues = innerPadding, searchedCityText)
+//                }
+//            }
+//        }
+//    }
+//
+//    @Composable
+//    private fun TopAppBarUI(searchText: String, onSearchQueryChanged: (String) -> Unit) {
+//
+//        OutlinedTextField(
+//            value = searchText,
+//            onValueChange = onSearchQueryChanged,
+//            modifier = Modifier
+//                .fillMaxWidth()
+//                .padding(horizontal = 16.dp, vertical = 10.dp),
+//            leadingIcon = {
+//                Icon(
+//                    imageVector = Icons.Outlined.Search,
+//                    contentDescription = "Search Icon",
+//                    modifier = Modifier.size(24.dp)
+//                )
+//            },
+//            placeholder = { Text(text = "Enter city name (at least 3 letters)") },
+//            singleLine = true,
+//            label = { Text(text = "Search") },
+//            isError = searchText.length < 3,
+//        )
+//    }
+//
+//    @Composable
+//    private fun ContentUI(innerPaddingValues: PaddingValues, cityText: String) {
+//
+//        viewModel.fetchCityList(cityText)
+//        val cityList by viewModel.cityList.observeAsState(initial = emptyList())
+//
+//        LazyColumn(
+//            modifier = Modifier
+//                .padding(innerPaddingValues)
+//                .fillMaxSize(),
+//            contentPadding = PaddingValues(15.dp)
+//        ) {
+//            items(cityList) { city ->
+//                SearchedCityUI(city)
+//                Spacer(modifier = Modifier.padding(top = 10.dp))
+//            }
+//        }
+//    }
+//
+//    @Composable
+//    private fun SearchedCityUI(city: CityData) {
+//        ElevatedCard(
+//            onClick = { /*TODO*/ },
+//        ) {
+//            // City Name Text (Toronto)
+//            Text(
+//                modifier = Modifier
+//                    .fillMaxWidth()
+//                    .padding(5.dp),
+//                text = city.name,
+//                textAlign = TextAlign.Center,
+//                style = MaterialTheme.typography.titleLarge,
+//                color = MaterialTheme.colorScheme.primary,
+//            )
+//
+//            // City Region Text (Ontario)
+//            Text(
+//                modifier = Modifier.fillMaxWidth(),
+//                text = city.region,
+//                textAlign = TextAlign.Center,
+//                style = MaterialTheme.typography.bodyMedium,
+//                color = MaterialTheme.colorScheme.secondary,
+//            )
+//
+//            // City Country Text (Canada)
+//            Text(
+//                modifier = Modifier
+//                    .fillMaxWidth()
+//                    .padding(bottom = 5.dp),
+//                text = city.country,
+//                textAlign = TextAlign.Center,
+//                style = MaterialTheme.typography.bodySmall,
+//                color = MaterialTheme.colorScheme.tertiary,
+//            )
+//        }
+//    }
 }
 
