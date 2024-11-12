@@ -39,7 +39,7 @@ fun SearchScreen(navController: NavController, viewModel: WeatherDataViewModel)
             topBar = { TopAppBarUI(searchedCityText, { searchedCityText = it }) },
     ) { innerPadding ->
         if (searchedCityText.length >= 3)
-            ContentUI(innerPaddingValues = innerPadding, searchedCityText, viewModel = viewModel)
+            ContentUI(innerPaddingValues = innerPadding, searchedCityText, navController = navController, viewModel = viewModel)
     }
 }
 
@@ -68,7 +68,7 @@ private fun TopAppBarUI(searchText: String, onSearchQueryChanged: (String) -> Un
 }
 
 @Composable
-private fun ContentUI(innerPaddingValues: PaddingValues, cityText: String, viewModel: WeatherDataViewModel)
+private fun ContentUI(innerPaddingValues: PaddingValues, cityText: String, navController: NavController, viewModel: WeatherDataViewModel)
 {
     viewModel.fetchCityList(cityText)
     val cityList by viewModel.cityList.observeAsState(initial = emptyList())
@@ -80,17 +80,17 @@ private fun ContentUI(innerPaddingValues: PaddingValues, cityText: String, viewM
             contentPadding = PaddingValues(15.dp)
     ) {
         items(cityList) { city ->
-            SearchedCityUI(city)
+            SearchedCityUI(city = city, navController = navController)
             Spacer(modifier = Modifier.padding(top = 10.dp))
         }
     }
 }
 
 @Composable
-private fun SearchedCityUI(city: CityData)
+private fun SearchedCityUI(city: CityData, navController: NavController)
 {
     ElevatedCard(
-            onClick = { /*TODO*/ },
+            onClick = { navController.popBackStack() },
     ) {
         // City Name Text (Toronto)
         Text(
