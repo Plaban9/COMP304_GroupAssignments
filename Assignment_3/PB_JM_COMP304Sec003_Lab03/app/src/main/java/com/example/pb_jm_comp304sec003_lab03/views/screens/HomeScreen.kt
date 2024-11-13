@@ -80,6 +80,7 @@ private fun TopAppBarUI(navController: NavController)
 @Composable
 private fun ContentUI(city: String, innerPaddingValues: PaddingValues, viewModel: WeatherDataViewModel)
 {
+
     viewModel.fetchCityDBList()
 
     val roomCityDataList by viewModel.cityDBList.observeAsState()
@@ -87,6 +88,7 @@ private fun ContentUI(city: String, innerPaddingValues: PaddingValues, viewModel
     var weatherDataList = mutableListOf<WeatherData>()
 
     if (roomCityDataList == null)
+
     {
         Text(text = "Loading...")
     }
@@ -99,9 +101,10 @@ private fun ContentUI(city: String, innerPaddingValues: PaddingValues, viewModel
         }
     }
         LazyVerticalGrid(
-            modifier = Modifier.padding(innerPaddingValues),
-            columns = GridCells.Fixed(count = 2)
+                modifier = Modifier.padding(innerPaddingValues),
+                columns = GridCells.Fixed(count = 2)
         ) {
+
                 items(weatherDataList) { weatherData ->
                     WeatherCard(weatherData)
                 }
@@ -117,6 +120,7 @@ private fun ContentUI(city: String, innerPaddingValues: PaddingValues, viewModel
 //                WeatherCard(weatherData = roomCityDataList!!)
 //                //Text(text = weatherData.toString())
 //            }
+
         }
 }
 
