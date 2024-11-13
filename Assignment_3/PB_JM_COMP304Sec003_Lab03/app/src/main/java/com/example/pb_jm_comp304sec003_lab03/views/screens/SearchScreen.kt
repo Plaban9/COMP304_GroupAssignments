@@ -27,6 +27,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.pb_jm_comp304sec003_lab03.models.CityData
+import com.example.pb_jm_comp304sec003_lab03.roomDB.RoomCityData
 import com.example.pb_jm_comp304sec003_lab03.viewmodels.WeatherDataViewModel
 
 @Composable
@@ -79,19 +80,22 @@ private fun ContentUI(innerPaddingValues: PaddingValues, cityText: String, navCo
             contentPadding = PaddingValues(15.dp)
     ) {
         items(cityList) { city ->
-            SearchedCityUI(city = city, navController = navController)
+            SearchedCityUI(city = city, navController = navController, viewModel = viewModel)
             Spacer(modifier = Modifier.padding(top = 10.dp))
         }
     }
 }
 
 @Composable
-private fun SearchedCityUI(city: CityData, navController: NavController)
+private fun SearchedCityUI(city: CityData, navController: NavController, viewModel: WeatherDataViewModel)
 {
     ElevatedCard(
             onClick =
             {
                 //TODO: Send Json here
+                val roomCity = getRoomCityData(city)
+                viewModel.insertCityIntoDB(roomCity)
+
                 navController.previousBackStackEntry?.savedStateHandle?.set("cityData", city.name)
                 navController.popBackStack()
             },
@@ -127,4 +131,12 @@ private fun SearchedCityUI(city: CityData, navController: NavController)
                 color = MaterialTheme.colorScheme.tertiary,
         )
     }
+}
+
+private fun getRoomCityData(city: CityData) : RoomCityData {
+    val roomCity = RoomCityData(
+        name = city.name
+    )
+
+    return roomCity
 }

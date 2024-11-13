@@ -3,8 +3,10 @@ package com.example.pb_jm_comp304sec003_lab03.views.screens
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -20,8 +22,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
 import com.example.pb_jm_comp304sec003_lab03.Navigation.NavDestination
@@ -32,19 +33,23 @@ import com.example.pb_jm_comp304sec003_lab03.viewmodels.WeatherDataViewModel
 fun HomeScreen(navController: NavController, viewModel: WeatherDataViewModel, cityString: String?)
 {
     //TODO: Check JSON Here
-    MainUI(navController = navController, viewModel = viewModel)
+    Text(text = cityString.toString(), modifier = Modifier
+        .fillMaxSize()
+        .wrapContentSize(Alignment.BottomCenter))
+    MainUI(navController = navController, viewModel = viewModel, cityString.toString())
 }
 
 @Composable
-private fun MainUI(navController: NavController, viewModel: WeatherDataViewModel)
+private fun MainUI(navController: NavController, viewModel: WeatherDataViewModel, city: String)
 {
     //TODO: Array of Cities
-    val test_city = "Toronto"
+
+
     Scaffold(
             modifier = Modifier.fillMaxSize(),
             topBar = { TopAppBarUI(navController = navController) }
     ) { innerPadding ->
-        ContentUI(city = test_city, innerPadding, viewModel)
+        ContentUI(city, innerPadding, viewModel)
     }
 }
 
@@ -75,37 +80,44 @@ private fun TopAppBarUI(navController: NavController)
 @Composable
 private fun ContentUI(city: String, innerPaddingValues: PaddingValues, viewModel: WeatherDataViewModel)
 {
-    viewModel.fetchCityWeatherData(city = city)
+    viewModel.fetchCityDBList()
 
-    val weatherData by viewModel.weatherData.observeAsState(initial = null)
+    val roomCityDataList by viewModel.cityDBList.observeAsState()
 
-    if (weatherData == null)
+    var weatherDataList = mutableListOf<WeatherData>()
+
+    if (roomCityDataList == null)
     {
         Text(text = "Loading...")
     }
-    else
-    {
+    else {
+        roomCityDataList!!.forEach{ data ->
+            viewModel.fetchCityWeatherData(data.name)
+            val weatherData = viewModel.weatherData.observeAsState()
+            if (weatherData.value != null)
+                weatherDataList.add(weatherData.value!!)
+        }
+    }
         LazyVerticalGrid(
             modifier = Modifier.padding(innerPaddingValues),
             columns = GridCells.Fixed(count = 2)
         ) {
-//                items(weatherDataList) { weatherData ->
-//                    WeatherCard(weatherData)
-//                }
-            item {
-                WeatherCard(weatherData = weatherData!!)
-                //Text(text = weatherData.toString())
-            }
-            item {
-                WeatherCard(weatherData = weatherData!!)
-                //Text(text = weatherData.toString())
-            }
-            item {
-                WeatherCard(weatherData = weatherData!!)
-                //Text(text = weatherData.toString())
-            }
+                items(weatherDataList) { weatherData ->
+                    WeatherCard(weatherData)
+                }
+//            item {
+//                WeatherCard(weatherData = roomCityDataList!!)
+//                //Text(text = weatherData.toString())
+//            }
+//            item {
+//                WeatherCard(weatherData = roomCityDataList!!)
+//                //Text(text = weatherData.toString())
+//            }
+//            item {
+//                WeatherCard(weatherData = roomCityDataList!!)
+//                //Text(text = weatherData.toString())
+//            }
         }
-    }
 }
 
 private fun searchBarUI(navController: NavController)

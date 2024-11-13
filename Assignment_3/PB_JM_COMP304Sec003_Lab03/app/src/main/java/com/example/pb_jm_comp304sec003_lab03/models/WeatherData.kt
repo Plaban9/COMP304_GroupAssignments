@@ -73,7 +73,7 @@ data class WeatherData(
 data class LocationData(
     val name: String,
     val region: String,
-    val country: String
+    val country: String,
 )
 
 data class Current(
