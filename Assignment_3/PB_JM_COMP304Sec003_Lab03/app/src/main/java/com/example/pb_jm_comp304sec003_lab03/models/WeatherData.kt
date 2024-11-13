@@ -73,7 +73,7 @@ data class WeatherData(
 data class LocationData(
     val name: String,
     val region: String,
-    val country: String
+    val country: String,
 )
 
 data class Current(
@@ -90,7 +90,8 @@ data class Current(
 )
 
 data class Condition(
-    val text: String
+    val text: String,
+    val icon: String,
 )
 
 data class AQI(

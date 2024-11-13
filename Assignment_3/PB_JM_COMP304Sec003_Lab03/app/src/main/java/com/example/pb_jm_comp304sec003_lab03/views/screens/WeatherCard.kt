@@ -1,9 +1,6 @@
 package com.example.pb_jm_comp304sec003_lab03.views.screens
 
-import android.graphics.Region
-import android.health.connect.datatypes.units.Temperature
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
+
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -26,26 +23,12 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.BlurredEdgeTreatment
-import androidx.compose.ui.draw.blur
-import androidx.compose.ui.draw.paint
-import androidx.compose.ui.draw.scale
-import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.Color.Companion.Blue
-import androidx.compose.ui.graphics.Color.Companion.Green
-import androidx.compose.ui.graphics.Color.Companion.Magenta
-import androidx.compose.ui.graphics.Color.Companion.Red
-import androidx.compose.ui.graphics.Shadow
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.FontStyle
+
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
-import com.example.pb_jm_comp304sec003_lab03.R
+import coil3.compose.AsyncImage
+
 import com.example.pb_jm_comp304sec003_lab03.models.WeatherData
 
 
@@ -174,22 +157,11 @@ fun TemperatureEmoji(weatherData: WeatherData)
                 horizontalAlignment = Alignment.End
         ) {
 
-            Text(
-                    modifier = Modifier
-                        .padding(1.dp)
-                        .align(Alignment.End)
-                        .wrapContentWidth(),
-                    text = "☀\uFE0F",
-                    fontWeight = FontWeight.Bold,
-//                    style = MaterialTheme.typography.headlineLarge,
-                    style = TextStyle(
-                            fontSize = 35.sp,
-                            shadow = Shadow(
-                                    color = Color.Black, offset = Offset(5f, 5f), blurRadius = 7f
-                            )
-                    ),
-                    textAlign = TextAlign.Right,
-                    color = Color.White,
+            AsyncImage(
+                model = "https://" + weatherData.current.condition.icon,
+                contentDescription = "Weather Icon",
+                modifier = Modifier.size(60.dp),
+
             )
 
         }

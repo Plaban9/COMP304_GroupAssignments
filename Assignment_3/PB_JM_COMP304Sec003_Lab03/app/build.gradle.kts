@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
+    id("com.google.devtools.ksp")
 }
 
 android {
@@ -82,17 +83,24 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 
-
     // Navigation
-
-    val nav_version = "2.8.3"
-
     // Jetpack Compose integration
     implementation(libs.androidx.navigation.compose)
 
     // Views/Fragments integration
     implementation(libs.androidx.navigation.fragment)
     implementation(libs.androidx.navigation.ui.ktx)
+
+    // Image loading from Internet using coil
+    implementation(libs.coil.compose)
+    implementation(libs.coil.network.okhttp)
+
+    // Room Database
+    implementation (libs.androidx.room.runtime)
+    implementation (libs.androidx.room.ktx)
+    implementation (libs.androidx.runtime.livedata)
+    annotationProcessor (libs.androidx.room.compiler)
+    ksp (libs.androidx.room.compiler)
 //
 //        // Feature module support for Fragments
 //        implementation(libs.androidx.navigation.dynamic.features.fragment)
