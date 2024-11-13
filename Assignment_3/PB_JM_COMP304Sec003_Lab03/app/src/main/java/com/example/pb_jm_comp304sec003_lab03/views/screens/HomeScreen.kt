@@ -78,8 +78,20 @@ private fun TopAppBarUI(navController: NavController)
 private fun ContentUI(city: String, innerPaddingValues: PaddingValues, viewModel: WeatherDataViewModel)
 {
     viewModel.fetchCityWeatherData(city = city)
+    //Test
+//    viewModel.fetchCityWeatherData(city = "Toronto")
 
     val weatherData by viewModel.weatherData.observeAsState(initial = null)
+
+    //Test
+//    viewModel.fetchCityWeatherData(city = "London")
+//    val weatherData by viewModel.weatherData.observeAsState(initial = null)
+//
+//    viewModel.fetchCityWeatherData(city = "New Delhi")
+//    val weatherData2 by viewModel.weatherData.observeAsState(initial = null)
+//
+//    viewModel.fetchCityWeatherData(city = "Toronto")
+//    val weatherData3 by viewModel.weatherData.observeAsState(initial = null)
 
     if (weatherData == null)
     {
@@ -88,15 +100,15 @@ private fun ContentUI(city: String, innerPaddingValues: PaddingValues, viewModel
     else
     {
         LazyVerticalGrid(
-            modifier = Modifier.padding(innerPaddingValues),
-            columns = GridCells.Fixed(count = 2)
+                modifier = Modifier.padding(innerPaddingValues),
+                columns = GridCells.Fixed(count = 2)
         ) {
 //                items(weatherDataList) { weatherData ->
 //                    WeatherCard(weatherData)
 //                }
             item {
                 WeatherCard(weatherData = weatherData!!)
-                //Text(text = weatherData.toString())
+//                Text(text = weatherData.toString())
             }
             item {
                 WeatherCard(weatherData = weatherData!!)

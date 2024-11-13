@@ -95,8 +95,8 @@ fun BackgroundImage(weatherData: WeatherData)
                 .wrapContentSize(unbounded = true, align = Alignment.Center)
                 .fillMaxSize()
                 .blur(
-                        radiusX = 1.5.dp,
-                        radiusY = 1.5.dp,
+                        radiusX = 2.dp,
+                        radiusY = 2.dp,
                         edgeTreatment = BlurredEdgeTreatment.Unbounded
                 )
     )
@@ -287,43 +287,43 @@ fun Country(weatherData: WeatherData)
 
 fun getBackgroundImage(weatherData: WeatherData): Int
 {
-    if (weatherData.current.condition.text.contains("sunny"))
+    if (weatherData.current.condition.text.contains("sunny", ignoreCase = true))
     {
         return R.drawable.sunny
     }
-    else if (weatherData.current.condition.text.contains("snow"))
+    else if (weatherData.current.condition.text.contains("snow", ignoreCase = true))
     {
         return R.drawable.snow_2
     }
-    else if (weatherData.current.condition.text.contains("rain"))
+    else if (weatherData.current.condition.text.contains("rain", ignoreCase = true))
     {
         return R.drawable.rain
     }
-    else if (weatherData.current.condition.text.contains("thunder"))
+    else if (weatherData.current.condition.text.contains("thunder", ignoreCase = true))
     {
         return R.drawable.thunder
     }
-    else if (weatherData.current.condition.text.contains("clear"))
+    else if (weatherData.current.condition.text.contains("clear", ignoreCase = true))
     {
         return R.drawable.sunny
     }
-    else if (weatherData.current.condition.text.contains("overcast"))
+    else if (weatherData.current.condition.text.contains("overcast", ignoreCase = true))
     {
         return R.drawable.overcast
     }
-    else if (weatherData.current.condition.text.contains("haze"))
+    else if (weatherData.current.condition.text.contains("haze", ignoreCase = true))
     {
         return R.drawable.fog
     }
-    else if (weatherData.current.condition.text.contains("fog"))
+    else if (weatherData.current.condition.text.contains("fog", ignoreCase = true))
     {
         return R.drawable.fog
     }
-    else if (weatherData.current.condition.text.contains("cloudy"))
+    else if (weatherData.current.condition.text.contains("cloudy", ignoreCase = true))
     {
         return R.drawable.cloudy
     }
-    else if (weatherData.current.condition.text.contains("mist"))
+    else if (weatherData.current.condition.text.contains("mist", ignoreCase = true))
     {
         return R.drawable.fog
     }
