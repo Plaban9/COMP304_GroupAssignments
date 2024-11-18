@@ -29,6 +29,7 @@ import androidx.navigation.NavController
 import com.example.pb_jm_comp304sec003_lab03.models.CityData
 import com.example.pb_jm_comp304sec003_lab03.roomDB.RoomCityData
 import com.example.pb_jm_comp304sec003_lab03.viewmodels.WeatherDataViewModel
+import com.example.pb_jm_comp304sec003_lab03.views.HomeActivity.Companion.shouldQuery
 
 @Composable
 fun SearchScreen(navController: NavController, viewModel: WeatherDataViewModel)
@@ -92,6 +93,8 @@ private fun SearchedCityUI(city: CityData, navController: NavController, viewMod
     ElevatedCard(
             onClick =
             {
+                shouldQuery = true
+
                 //TODO: Send Json here
                 val roomCity = getRoomCityData(city)
                 viewModel.insertCityIntoDB(roomCity)
