@@ -132,7 +132,10 @@ class Jaydeep : ComponentActivity() {
                 contentDescription = "Place X",
             )
 
-            Row {
+            Row (
+                modifier = Modifier.padding(5.dp),
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
                 // Title Text
                 Text(
                     modifier = Modifier
