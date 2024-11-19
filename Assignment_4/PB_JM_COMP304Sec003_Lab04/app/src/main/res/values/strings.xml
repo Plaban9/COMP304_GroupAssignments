@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">PB_JM_COMP304Sec003_Lab04</string>
+    <string name="title_activity_main">Main</string>
+    <string name="title_activity_jaydeep">Jaydeep</string>
+    <string name="title_activity_plaban">Plaban</string>
 </resources>
