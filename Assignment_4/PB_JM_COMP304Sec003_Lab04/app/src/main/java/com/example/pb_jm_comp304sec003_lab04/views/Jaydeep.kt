@@ -6,6 +6,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.viewModels
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -13,10 +14,10 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.List
 import androidx.compose.material.icons.filled.Favorite
-import androidx.compose.material.icons.filled.Home
 import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ElevatedCard
@@ -34,17 +35,27 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.pb_jm_comp304sec003_lab04.R
+import com.example.pb_jm_comp304sec003_lab04.models.PlaceData
+import com.example.pb_jm_comp304sec003_lab04.viewmodels.MapViewModel
 import com.example.pb_jm_comp304sec003_lab04.views.ui.theme.PB_JM_COMP304Sec003_Lab04Theme
 
 class Jaydeep : ComponentActivity() {
+
+    private var selectedPlaceType = ""
+    private val mapViewModel: MapViewModel by viewModels()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
             PB_JM_COMP304Sec003_Lab04Theme {
+
+                selectedPlaceType = intent.getStringExtra("PlaceType").toString()
+
                 MainUI()
             }
         }
@@ -55,7 +66,7 @@ class Jaydeep : ComponentActivity() {
     private fun MainUI() {
         Scaffold (
             topBar = { TopAppBarUI() },
-            bottomBar = { BottomAppBarUI() }
+            //bottomBar = { BottomAppBarUI() }
         ) { innerPadding ->
             ContentUI(innerPadding = innerPadding)
         }
@@ -99,6 +110,17 @@ class Jaydeep : ComponentActivity() {
 
     @Composable
     private fun ContentUI(innerPadding: PaddingValues) {
+
+        var placesList = emptyList<PlaceData>()
+        when(selectedPlaceType) {
+            "Restaurant" -> placesList = mapViewModel.getRestaurants()
+            "Cafe" -> placesList = mapViewModel.getCafes()
+            "Hotel" -> placesList = mapViewModel.getHotels()
+            "Gas Station" -> placesList = mapViewModel.getGasStations()
+            "Grocery" -> placesList = mapViewModel.getGroceries()
+            else -> Text(text = "ERROR: Can't load list")
+        }
+
         LazyColumn (
             modifier = Modifier.padding(innerPadding),
             horizontalAlignment = Alignment.CenterHorizontally,
@@ -106,17 +128,19 @@ class Jaydeep : ComponentActivity() {
             contentPadding = PaddingValues(10.dp),
             userScrollEnabled = true,
         ) {
-            item {
-                CardUI()
+            items(placesList) { place ->
+                CardUI(place)
             }
         }
     }
 
     @Composable
-    private fun CardUI() {
+    private fun CardUI(placeData: PlaceData) {
         ElevatedCard(
-            modifier = Modifier.fillMaxWidth(),
-            onClick = { gotoMapActivity(this@Jaydeep) },
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(5.dp),
+            onClick = { gotoMapActivity(this@Jaydeep, placeData) },
             colors = CardDefaults.elevatedCardColors(
                 containerColor = MaterialTheme.colorScheme.secondaryContainer,
                 contentColor = MaterialTheme.colorScheme.secondary,
@@ -128,7 +152,7 @@ class Jaydeep : ComponentActivity() {
                     .padding(10.dp)
                     .fillMaxWidth()
                     .height(150.dp),
-                imageVector = Icons.Filled.Home,
+                painter = painterResource(id = placeData.placeImg),
                 contentDescription = "Place X",
             )
 
@@ -140,20 +164,22 @@ class Jaydeep : ComponentActivity() {
                 Text(
                     modifier = Modifier
                         .padding(5.dp)
-                        .padding(start = 10.dp),
-                    text = "The Toronto Art Gallery",
+                        .padding(start = 10.dp)
+                        .fillMaxWidth(.7f),
+                    text = placeData.displayName,
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onSecondary,
                     fontWeight = FontWeight.Bold,
+                    overflow = TextOverflow.Ellipsis,
                 )
 
                 // Distance Text
-                Text(
-                    modifier = Modifier.padding(5.dp),
-                    text = "(100 m)",
-                    style = MaterialTheme.typography.bodySmall,
-                    color = MaterialTheme.colorScheme.onSecondary,
-                )
+//                Text(
+//                    modifier = Modifier.padding(5.dp),
+//                    text = "(100 m)",
+//                    style = MaterialTheme.typography.bodySmall,
+//                    color = MaterialTheme.colorScheme.onSecondary,
+//                )
 
                 // Rating Text
                 Text(
@@ -161,7 +187,7 @@ class Jaydeep : ComponentActivity() {
                         .padding(5.dp)
                         .padding(end = 10.dp)
                         .fillMaxWidth(),
-                    text = "⭐ 4.7",
+                    text = "⭐ ${placeData.rating}",
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSecondary,
                     textAlign = TextAlign.Right,
@@ -171,8 +197,10 @@ class Jaydeep : ComponentActivity() {
         }
     }
 
-    private fun gotoMapActivity(context: Context) {
+    private fun gotoMapActivity(context: Context, placeData: PlaceData) {
         val intent = Intent(context, Plaban::class.java)
+        intent.putExtra("Place_Location", placeData.latLng)
+        intent.putExtra("Place_Name", placeData.displayName)
         context.startActivity(intent)
     }
 }

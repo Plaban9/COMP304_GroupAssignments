@@ -3,4 +3,5 @@
     <string name="title_activity_main">Main</string>
     <string name="title_activity_jaydeep">Jaydeep</string>
     <string name="title_activity_plaban">Plaban</string>
+    <string name="google_maps_api_key">AIzaSyAnknpURwAOyJrY3U2K2so0gh6hPmy9d4I</string>
 </resources>
