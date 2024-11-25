@@ -7,11 +7,11 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -38,6 +38,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import coil3.compose.AsyncImage
 import com.example.pb_jm_comp304sec003_lab04.R
 import com.example.pb_jm_comp304sec003_lab04.models.PlaceData
 import com.example.pb_jm_comp304sec003_lab04.viewmodels.MapViewModel
@@ -66,7 +67,7 @@ class Jaydeep : ComponentActivity() {
     private fun MainUI() {
         Scaffold (
             topBar = { TopAppBarUI() },
-            //bottomBar = { BottomAppBarUI() }
+            bottomBar = { BottomAppBarUI() }
         ) { innerPadding ->
             ContentUI(innerPadding = innerPadding)
         }
@@ -146,14 +147,14 @@ class Jaydeep : ComponentActivity() {
                 contentColor = MaterialTheme.colorScheme.secondary,
             ),
         ) {
-            // Card Image (Will be replaced with AsyncImage later on)
-            Icon(
+            // Image loaded from internet for specified category
+            AsyncImage(
+                model = placeData.imgURL,
+                contentDescription = "Image About",
                 modifier = Modifier
-                    .padding(10.dp)
                     .fillMaxWidth()
-                    .height(150.dp),
-                painter = painterResource(id = placeData.placeImg),
-                contentDescription = "Place X",
+                    .padding(10.dp)
+                    .clickable { gotoMapActivity(this@Jaydeep, placeData) },
             )
 
             Row (
@@ -173,7 +174,7 @@ class Jaydeep : ComponentActivity() {
                     overflow = TextOverflow.Ellipsis,
                 )
 
-                // Distance Text
+                // Distance Text (Can't use because the API is paid)
 //                Text(
 //                    modifier = Modifier.padding(5.dp),
 //                    text = "(100 m)",

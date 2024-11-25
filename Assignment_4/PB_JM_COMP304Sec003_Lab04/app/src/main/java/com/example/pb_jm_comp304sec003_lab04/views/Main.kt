@@ -75,7 +75,7 @@ class Main : ComponentActivity() {
     private fun MainUI() {
         Scaffold (
             topBar = { TopAppBarUI() },
-            //bottomBar = { BottomAppBarUI() }
+            bottomBar = { BottomAppBarUI() }
         ) { innerPadding ->
             ContentUI(innerPadding = innerPadding)
         }
@@ -213,5 +213,4 @@ class Main : ComponentActivity() {
             }
         }
     }
-
 }

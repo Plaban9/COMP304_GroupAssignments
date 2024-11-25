@@ -7,5 +7,6 @@ data class PlaceData(
     val latLng: LatLng,
     val displayName: String,
     @DrawableRes val placeImg: Int,
-    val rating: Float
+    val rating: Float,
+    val imgURL: String = "",
 )

@@ -80,4 +80,8 @@ dependencies {
     // Places API
     implementation(libs.places)
     implementation(libs.play.services.location)
+
+    // Image loading from Internet using coil
+    implementation(libs.coil.compose)
+    implementation(libs.coil.network.okhttp)
 }
