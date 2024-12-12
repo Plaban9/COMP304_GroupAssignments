@@ -18,11 +18,23 @@ import androidx.core.content.ContextCompat.startActivity
 
 class DisplayActivity : ComponentActivity()
 {
+    var companyName = ""
+    var opening = ""
+    var closing = ""
     override fun onCreate(savedInstanceState: Bundle?)
     {
         super.onCreate(savedInstanceState)
 //        enableEdgeToEdge()
         setContent {
+            val i = intent
+
+            if (i.hasExtra("name"))
+            {
+                companyName = intent.getStringExtra("name").toString()
+                opening = intent.getStringExtra("opening").toString()
+                closing = intent.getStringExtra("closing").toString()
+            }
+
             DisplayList()
         }
     }
@@ -41,9 +53,9 @@ class DisplayActivity : ComponentActivity()
     fun DisplayLabel()
     {
         Column(Modifier.padding(10.dp)) {
-            Text(text = "Company Name: ")
-            Text(text = "Opening Price: ")
-            Text(text = "Closing Price: ")
+            Text(text = "Company Name: " + companyName)
+            Text(text = "Opening Price: " + opening)
+            Text(text = "Closing Price: " + closing)
         }
     }
 
